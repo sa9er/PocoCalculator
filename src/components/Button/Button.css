@@ -1,0 +1,34 @@
+/* Components/Button/Button.css */
+.btn-base {
+  width: 100%;
+  height: clamp(50px, 12vh, 80px); /* Responsive height */
+  border: none;
+  border-radius: 15px;
+  background: #262626;
+  color: #fff;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (orientation: landscape) {
+  .btn-base {
+    height: clamp(40px, 15vh, 55px); /* Shorter buttons for wide screens */
+    font-size: 1.1rem;
+  }
+  
+  .utility {
+    height: clamp(35px, 12vh, 45px);
+  }
+}
+
+.operator { background: #333; color: #a3ffb4; }
+.equal { background: #61ab6d; color: white; }
+.zero-btn { grid-column: span 2; }
+
+/* In 5-column landscape, we might not want the '0' to span 2 */
+@media (orientation: landscape) {
+  .zero-btn { grid-column: span 1; }
+}

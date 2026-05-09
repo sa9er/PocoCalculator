@@ -1,0 +1,26 @@
+/* Components/Keypad/Keypad.css */
+.keypad-wrapper {
+  flex: 2; /* Keypad gets more room in landscape */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.utility-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.main-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+@media (orientation: landscape) {
+  .main-grid {
+    grid-template-columns: repeat(5, 1fr); /* 5 columns looks better horizontal */
+  }
+}
