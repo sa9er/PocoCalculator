@@ -12,17 +12,17 @@
   text-align: right;
   overflow: hidden;
   transition: all 0.3s ease;
+  position: relative;
 }
 
 /* Landscape orientation adjustment */
 @media (orientation: landscape) {
   .screen-base {
-    height: 85vh; /* Prevents overflow on short wide screens */
-    max-width: 35%; /* Moves screen to the left column */
+    height: 85vh;
+    max-width: 35%;
   }
 }
 
-/* Container for the 3 small history lines in main view */
 .history-rows {
   display: flex;
   flex-direction: column;
@@ -30,43 +30,81 @@
   margin-bottom: 10px;
 }
 
-/* Fixed color for history lines in main display */
 .history-line {
-  color: rgba(163, 255, 180, 0.5); /* Semi-transparent mint green */
+  color: rgba(163, 255, 180, 0.5);
   font-size: 1.1rem;
   min-height: 1.6rem;
   font-family: monospace;
 }
 
-/* Brighter color for the most recent calculation */
 .history-line:last-child {
   color: rgba(163, 255, 180, 0.8);
 }
 
-/* The primary number display */
 .display-main {
-  color: #a3ffb4; /* Solid mint green */
+  color: #a3ffb4;
   font-size: clamp(2rem, 8vw, 3.5rem);
   font-weight: 400;
   word-break: break-all;
   margin-top: 5px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
-/* White color for the result state */
 .display-main.locked {
   color: #ffffff;
 }
 
-/* Error state */
 .display-main.error {
   color: #ff6b6b;
   font-size: clamp(1.5rem, 6vw, 2.5rem);
 }
 
+/* Copied toast notification */
+/* Copied toast notification */
+.copied-toast {
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(163, 255, 180, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(163, 255, 180, 0.3);
+  color: #a3ffb4;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  pointer-events: none;
+  animation: fadeInOut 1.2s ease forwards;
+  z-index: 10;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-10px);
+  }
+  15% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-10px);
+  }
+}
+
 /* --- FULL HISTORY TOGGLE VIEW --- */
 
 .screen-base.history-view {
-  background: #0a0a0a; /* Pure black for the list view */
+  background: #0a0a0a;
   text-align: left;
   justify-content: flex-start;
   border: 1px solid #1d3524;
@@ -92,14 +130,14 @@
 }
 
 .history-item {
-  color: #e0e0e0; /* High contrast off-white for readability */
+  color: #e0e0e0;
   font-size: 1.2rem;
   padding: 15px 0;
   border-bottom: 1px solid rgba(163, 255, 180, 0.1);
   word-break: break-all;
 }
 
-/* Custom scrollbar for mobile/Termux browsers */
+/* Custom scrollbar */
 .full-history-list::-webkit-scrollbar {
   width: 4px;
 }

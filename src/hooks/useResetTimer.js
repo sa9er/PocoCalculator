@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 
-export function useResetTimer(setDisplay, setIsResult) {
+export function useResetTimer(setDisplay, setIsResult, clearRecentHistory) {
   const timerRef = useRef(null);
   const isHolding = useRef(false);
 
@@ -10,6 +10,7 @@ export function useResetTimer(setDisplay, setIsResult) {
       if (isHolding.current) {
         setDisplay('0');
         setIsResult(false);
+        clearRecentHistory();
         isHolding.current = false;
       }
     }, 3000);

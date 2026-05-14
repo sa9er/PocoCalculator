@@ -1,16 +1,36 @@
 import { useState } from 'react';
 import { operators } from '../utils/constants';
 
-export function useDisplay() {
+export function useDisplay(clearRecentHistory) {
   const [display, setDisplay] = useState('0');
   const [isResult, setIsResult] = useState(false);
+  const [lastResult, setLastResult] = useState(null);
+  const [acCount, setAcCount] = useState(0);
+  const [lastAcTime, setLastAcTime] = useState(0);
 
   const handleAction = (val) => {
     if (val === 'AC') {
       setDisplay('0');
       setIsResult(false);
+      setLastResult(null);
+      
+      const now = Date.now();
+      if (now - lastAcTime < 1000) {
+        const newCount = acCount + 1;
+        setAcCount(newCount);
+        if (newCount >= 3) {
+          clearRecentHistory();
+          setAcCount(0);
+        }
+      } else {
+        setAcCount(1);
+      }
+      setLastAcTime(now);
+      
       return { shouldCalculate: false };
     }
+
+    setAcCount(0);
 
     if (val === 'DEL') {
       if (!isResult) {
@@ -29,10 +49,24 @@ export function useDisplay() {
     }
 
     if (val === '=') {
+      if (isResult) {
+        return { shouldCalculate: false };
+      }
       return { shouldCalculate: true };
     }
 
-    // Handle factorial
+    // If we have a result, only allow operators, AC, or DEL
+    if (isResult) {
+      if (operators.includes(val) || val === 'ln' || val === '√' || val === '!') {
+        const suffix = val.length > 1 || val === '√' ? `${val}(` : val;
+        setDisplay((lastResult || display) + suffix);
+        setIsResult(false);
+        return { shouldCalculate: false };
+      }
+      // Ignore numbers and other inputs when showing result
+      return { shouldCalculate: false };
+    }
+
     if (val === '!') {
       setDisplay(prev => prev + '!');
       return { shouldCalculate: false };
@@ -55,26 +89,17 @@ export function useDisplay() {
       return { shouldCalculate: false };
     }
 
-    if (isResult) {
-      if (['+', '-', '*', '/', '^', '%'].includes(val)) {
-        setDisplay(display + val);
-      } else {
-        setDisplay(val);
+    setDisplay(prev => {
+      if (prev === '0' && val !== '.' && !['π', 'e'].includes(val)) return val;
+      if (val === '.') {
+        const lastNumber = prev.split(/[+\-*/^%()]/).pop();
+        if (lastNumber && lastNumber.includes('.')) return prev;
       }
-      setIsResult(false);
-    } else {
-      setDisplay(prev => {
-        if (prev === '0' && val !== '.' && !['π', 'e'].includes(val)) return val;
-        if (val === '.') {
-          const lastNumber = prev.split(/[+\-*/^%()]/).pop();
-          if (lastNumber && lastNumber.includes('.')) return prev;
-        }
-        return prev + val;
-      });
-    }
+      return prev + val;
+    });
 
     return { shouldCalculate: false };
   };
 
-  return { display, setDisplay, isResult, setIsResult, handleAction };
+  return { display, setDisplay, isResult, setIsResult, handleAction, setLastResult };
 }

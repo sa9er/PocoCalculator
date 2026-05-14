@@ -3,6 +3,7 @@ import Screen from "./components/Screen/Screen.jsx";
 import Keypad from "./components/Keypad/Keypad.jsx";
 import UtilityBar from "./components/Keypad/UtilityBar.jsx";
 import { useCalculator } from "./hooks/useCalculator";
+import { useKeyboard } from "./hooks/useKeyboard";
 import "./App.css";
 
 export default function App() {
@@ -10,16 +11,26 @@ export default function App() {
   const [isScientificMode, setIsScientificMode] = useState(false);
   
   const { 
-    display, history, isResult, 
+    display, history, recentHistory, isResult, 
     handleAction, handlePaste,
     startResetTimer, stopResetTimer 
   } = useCalculator();
+
+  useKeyboard(
+    handleAction, 
+    handlePaste, 
+    isHistoryMode, 
+    setIsHistoryMode, 
+    isScientificMode, 
+    setIsScientificMode
+  );
 
   return (
     <div className="full-viewport">
       <Screen 
         display={display} 
-        history={history} 
+        history={history}
+        recentHistory={recentHistory}
         isHistoryMode={isHistoryMode} 
         isResult={isResult} 
       />

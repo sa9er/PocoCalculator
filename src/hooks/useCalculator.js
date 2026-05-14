@@ -6,9 +6,9 @@ import { evaluateExpression } from '../utils/mathEngine';
 import { normalizePastedText } from '../utils/clipboardUtils';
 
 export function useCalculator() {
-  const { display, setDisplay, isResult, setIsResult, handleAction } = useDisplay();
-  const { history, addToHistory } = useHistory();
-  const { startResetTimer, stopResetTimer } = useResetTimer(setDisplay, setIsResult);
+  const { fullHistory, recentHistory, addToHistory, clearRecentHistory } = useHistory();
+  const { display, setDisplay, isResult, setIsResult, handleAction, setLastResult } = useDisplay(clearRecentHistory);
+  const { startResetTimer, stopResetTimer } = useResetTimer(setDisplay, setIsResult, clearRecentHistory);
 
   const calculate = (inputStr) => {
     try {
@@ -21,6 +21,7 @@ export function useCalculator() {
       addToHistory(`${cleanDisplay} = ${result}`);
       
       setDisplay(result.toString());
+      setLastResult(result.toString());
       setIsResult(true);
     } catch (err) {
       setDisplay('Error');
@@ -51,7 +52,8 @@ export function useCalculator() {
 
   return {
     display,
-    history,
+    history: fullHistory,
+    recentHistory,
     isResult,
     handleAction: wrappedHandleAction,
     handlePaste,

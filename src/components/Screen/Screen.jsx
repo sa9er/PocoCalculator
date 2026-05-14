@@ -1,6 +1,34 @@
+import { useState, useRef } from "react";
 import "./Screen.css";
 
-export default function Screen({ display, history, isHistoryMode, isResult }) {
+export default function Screen({ display, history, recentHistory, isHistoryMode, isResult }) {
+  const [showCopied, setShowCopied] = useState(false);
+  const lastTapRef = useRef(0);
+  const timerRef = useRef(null);
+
+  const handleDisplayTap = () => {
+    const now = Date.now();
+    if (now - lastTapRef.current < 300) {
+      // Clear any existing timer
+      if (timerRef.current) clearTimeout(timerRef.current);
+      
+      navigator.clipboard.writeText(display).then(() => {
+        setShowCopied(true);
+        timerRef.current = setTimeout(() => setShowCopied(false), 1200);
+      }).catch(() => {
+        const textArea = document.createElement("textarea");
+        textArea.value = display;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textArea);
+        setShowCopied(true);
+        timerRef.current = setTimeout(() => setShowCopied(false), 1200);
+      });
+    }
+    lastTapRef.current = now;
+  };
+
   if (isHistoryMode) {
     return (
       <div className="screen-base history-view">
@@ -23,13 +51,19 @@ export default function Screen({ display, history, isHistoryMode, isResult }) {
   return (
     <div className="screen-base">
       <div className="history-rows">
-        {history.slice(-3).map((item, index) => (
+        {recentHistory && recentHistory.map((item, index) => (
           <div key={index} className="history-line">{item}</div>
         ))}
       </div>
-      <div className={`display-main ${isResult ? "locked" : ""} ${display === "Error" ? "error" : ""}`}>
+      <div 
+        className={`display-main ${isResult ? "locked" : ""} ${display === "Error" ? "error" : ""}`}
+        onClick={handleDisplayTap}
+      >
         {display}
       </div>
+      {showCopied && (
+        <div className="copied-toast">Copied!</div>
+      )}
     </div>
   );
 }

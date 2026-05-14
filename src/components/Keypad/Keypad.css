@@ -40,6 +40,11 @@
   font-weight: 500;
 }
 
+/* Keyboard shortcut hint */
+.btn-base[title] {
+  position: relative;
+}
+
 @media (orientation: landscape) {
   .main-grid {
     grid-template-columns: repeat(5, 1fr);
