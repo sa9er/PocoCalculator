@@ -11,6 +11,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: all 0.15s ease;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.btn-base:active {
+  transform: scale(0.95);
 }
 
 @media (orientation: landscape) {
@@ -24,11 +31,48 @@
   }
 }
 
-.operator { background: #333; color: #a3ffb4; }
-.equal { background: #61ab6d; color: white; }
-.zero-btn { grid-column: span 2; }
+.operator { 
+  background: #333; 
+  color: #a3ffb4; 
+}
+
+.scientific { 
+  background: #2d2d3a; 
+  color: #c4b5fd; 
+  font-size: 0.85rem; 
+}
+
+.equal { 
+  background: #61ab6d; 
+  color: white; 
+}
+
+.zero-btn { 
+  grid-column: span 2; 
+}
 
 /* In 5-column landscape, we might not want the '0' to span 2 */
 @media (orientation: landscape) {
-  .zero-btn { grid-column: span 1; }
+  .zero-btn { 
+    grid-column: span 1; 
+  }
+}
+
+/* Hover effects for desktop */
+@media (hover: hover) {
+  .btn-base:hover {
+    filter: brightness(1.2);
+  }
+  
+  .operator:hover {
+    background: #3d3d3d;
+  }
+  
+  .scientific:hover {
+    background: #36364a;
+  }
+  
+  .equal:hover {
+    background: #72c485;
+  }
 }

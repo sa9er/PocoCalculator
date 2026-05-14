@@ -57,6 +57,12 @@
   color: #ffffff;
 }
 
+/* Error state */
+.display-main.error {
+  color: #ff6b6b;
+  font-size: clamp(1.5rem, 6vw, 2.5rem);
+}
+
 /* --- FULL HISTORY TOGGLE VIEW --- */
 
 .screen-base.history-view {

@@ -9,7 +9,11 @@ export default function Screen({ display, history, isHistoryMode, isResult }) {
           {history.length === 0 ? (
             <div className="history-item">No history yet</div>
           ) : (
-            history.map((item, i) => <div key={i} className="history-item">{item}</div>)
+            history.map((item, i) => (
+              <div key={i} className="history-item">
+                {item}
+              </div>
+            ))
           )}
         </div>
       </div>
@@ -23,7 +27,7 @@ export default function Screen({ display, history, isHistoryMode, isResult }) {
           <div key={index} className="history-line">{item}</div>
         ))}
       </div>
-      <div className={`display-main ${isResult ? "locked" : ""}`}>
+      <div className={`display-main ${isResult ? "locked" : ""} ${display === "Error" ? "error" : ""}`}>
         {display}
       </div>
     </div>

@@ -32,6 +32,14 @@
   color: #a3ffb4;
 }
 
+/* Scientific button styles */
+.btn-base.scientific {
+  background: #2a2a2a;
+  color: #c4b5fd;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
 @media (orientation: landscape) {
   .main-grid {
     grid-template-columns: repeat(5, 1fr);
