@@ -11,7 +11,8 @@ export default function App() {
   
   const { 
     display, history, isResult, 
-    handleAction, startResetTimer, stopResetTimer 
+    handleAction, handlePaste,
+    startResetTimer, stopResetTimer 
   } = useCalculator();
 
   return (
@@ -26,6 +27,7 @@ export default function App() {
       <div className="keypad-wrapper">
         <UtilityBar 
           onAction={handleAction}
+          onPaste={handlePaste}
           onToggleHist={() => setIsHistoryMode(!isHistoryMode)}
           onToggleSci={() => setIsScientificMode(!isScientificMode)}
           onHoldReset={startResetTimer}
@@ -35,8 +37,8 @@ export default function App() {
         />
         
         <Keypad 
-          onAction={handleAction}
-          isScientificMode={isScientificMode}
+          onAction={handleAction} 
+          isScientificMode={isScientificMode} 
         />
       </div>
     </div>

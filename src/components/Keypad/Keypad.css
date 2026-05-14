@@ -1,26 +1,39 @@
-/* Components/Keypad/Keypad.css */
 .keypad-wrapper {
-  flex: 2; /* Keypad gets more room in landscape */
+  flex: 2;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  gap: 12px;
 }
 
+/* Ensure 6 columns for the utility row */
 .utility-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 8px;
-  margin-bottom: 10px;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 6px;
+  margin-bottom: 5px;
 }
 
 .main-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
+  gap: 10px;
+}
+
+/* Shrink text slightly so 'PASTE' doesn't overflow */
+.btn-base.utility {
+  font-size: 0.6rem;
+  background: #333;
+  height: 48px;
+  text-transform: uppercase;
+}
+
+.btn-base.active {
+  border: 1px solid #a3ffb4;
+  color: #a3ffb4;
 }
 
 @media (orientation: landscape) {
   .main-grid {
-    grid-template-columns: repeat(5, 1fr); /* 5 columns looks better horizontal */
+    grid-template-columns: repeat(5, 1fr);
   }
 }
