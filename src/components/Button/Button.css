@@ -1,7 +1,7 @@
 /* Components/Button/Button.css */
 .btn-base {
   width: 100%;
-  height: clamp(50px, 12vh, 80px); /* Responsive height */
+  height: clamp(50px, 12vh, 80px);
   border: none;
   border-radius: 15px;
   background: #262626;
@@ -22,7 +22,7 @@
 
 @media (orientation: landscape) {
   .btn-base {
-    height: clamp(40px, 15vh, 55px); /* Shorter buttons for wide screens */
+    height: clamp(40px, 15vh, 55px);
     font-size: 1.1rem;
   }
   
@@ -47,11 +47,12 @@
   color: white; 
 }
 
+/* Zero button spans 2 columns */
 .zero-btn { 
   grid-column: span 2; 
 }
 
-/* In 5-column landscape, we might not want the '0' to span 2 */
+/* In landscape mode, zero button spans 1 column */
 @media (orientation: landscape) {
   .zero-btn { 
     grid-column: span 1; 

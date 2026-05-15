@@ -1,0 +1,109 @@
+.number-pad {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.number-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+/* Last row: 0 spans 2 columns, . takes 1 column */
+.number-row.last-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 8px;
+}
+
+/* Number buttons */
+.btn-base.number {
+  background: linear-gradient(145deg, #2a2a2e, #222226);
+  color: #e0e0e0;
+  font-size: 1.3rem;
+  font-weight: 500;
+  border-radius: 50px;
+  height: 55px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.btn-base.number:active {
+  transform: scale(0.92);
+  background: linear-gradient(145deg, #222226, #1a1a1e);
+}
+
+/* Zero button - spans 2 columns exactly */
+.btn-base.zero-span {
+  background: linear-gradient(145deg, #2a2a2e, #222226);
+  color: #e0e0e0;
+  font-size: 1.3rem;
+  font-weight: 500;
+  border-radius: 50px;
+  height: 55px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  width: 100%;
+}
+
+.btn-base.zero-span:active {
+  transform: scale(0.95);
+  background: linear-gradient(145deg, #222226, #1a1a1e);
+}
+
+/* Decimal button */
+.btn-base.number.decimal {
+  background: linear-gradient(145deg, #2a2a2e, #222226);
+  font-weight: bold;
+}
+
+/* Scientific pad styling */
+.scientific-pad .number-row {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.scientific-pad .btn-base.scientific {
+  background: #2a3a3a;
+  color: #7dd3fc;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: lowercase;
+  height: 55px;
+  border-radius: 12px;
+}
+
+.scientific-pad .btn-base.scientific:active {
+  transform: scale(0.92);
+  background: #1e2e2e;
+}
+
+/* Responsive adjustments */
+@media (max-width: 500px) {
+  .number-pad {
+    gap: 6px;
+  }
+  
+  .number-row {
+    gap: 6px;
+  }
+  
+  .btn-base.number,
+  .btn-base.zero-span,
+  .scientific-pad .btn-base.scientific {
+    height: 48px;
+    font-size: 1.1rem;
+  }
+  
+  .scientific-pad .btn-base.scientific {
+    font-size: 0.7rem;
+  }
+}
+
+@media (orientation: landscape) {
+  .btn-base.number,
+  .btn-base.zero-span,
+  .scientific-pad .btn-base.scientific {
+    height: 45px;
+    font-size: 1rem;
+  }
+}

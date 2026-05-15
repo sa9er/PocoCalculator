@@ -34,11 +34,6 @@ export default function UtilityBar({
         type={`utility ${isScientificMode ? "active" : ""}`} 
         onClick={onToggleSci} 
       />
-      <Button 
-        label="=" 
-        type="utility equal" 
-        onClick={() => onAction("=")} 
-      />
     </div>
   );
 }

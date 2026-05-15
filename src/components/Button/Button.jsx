@@ -20,6 +20,7 @@ export default function Button({ label, onClick, type, onHoldStart, onHoldEnd })
     'exp': 'X',
     'π': 'P',
     'e': 'E',
+    'inv': 'I',
   };
 
   const shortcut = shortcutMap[label];
